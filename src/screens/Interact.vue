@@ -4,7 +4,7 @@
     :style="{
       width: `${
         ((((738 - 16 * 4) / Math.sqrt(cardContexts.length) - 16) * 3) / 4 + 16) *
-        Math.sqrt(cardContexts.length)
+        (Math.sqrt(cardContexts.length) + 0.75)
       }px`,
     }"
   >

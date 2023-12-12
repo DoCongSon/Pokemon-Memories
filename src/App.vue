@@ -38,6 +38,7 @@ const handlePlayAgain = () => {
 <template>
   <div id="app">
     <h1 v-if="statusMatch !== 'ranks'" class="rank" @click="statusMatch = 'ranks'">🏆</h1>
+    <h1 v-if="statusMatch !== 'default'" class="home" @click="statusMatch = 'default'">🏠</h1>
     <Main @onStart="handleBeforeStart" v-if="statusMatch === 'default'" />
     <Interact
       v-if="statusMatch === 'match'"
@@ -63,6 +64,18 @@ const handlePlayAgain = () => {
   z-index: 3;
   top: 0;
   right: 0;
+  font-size: 3rem;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.home {
+  position: absolute;
+  margin: 0;
+  display: block;
+  z-index: 3;
+  top: 0;
+  left: 0;
   font-size: 3rem;
   margin: 1rem;
   cursor: pointer;
