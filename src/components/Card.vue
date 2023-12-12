@@ -107,9 +107,9 @@ defineExpose({
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    @media (prefers-color-scheme: light) {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
+    // @media (prefers-color-scheme: light) {
+    //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    // }
 
     &--font {
       .card__content {
