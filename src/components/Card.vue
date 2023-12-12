@@ -21,7 +21,7 @@
       <div class="card__face card__face--back">
         <div
           class="card__content"
-          :style="{ backgroundImage: `url('src/assets/${imagePath}')` }"
+          :style="{ backgroundImage: `url('/assets/${imagePath}')` }"
         ></div>
       </div>
     </div>
@@ -113,7 +113,7 @@ defineExpose({
 
     &--font {
       .card__content {
-        background-image: url('../assets/images/icon_back.png');
+        background-image: url('/assets/images/icon_back.png');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
