@@ -1,5 +1,8 @@
 <template>
-  <p>This is game created by DCS in Vue 3 course. <a href="#">Source code view here</a></p>
+  <p>
+    This is game created by DCS in Vue 3 course.
+    <a href="https://github.com/DoCongSon/Pokemon-Memories">Source code view here</a>
+  </p>
 </template>
 
 <script setup></script>

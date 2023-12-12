@@ -3,6 +3,7 @@ import Main from './screens/Main.vue';
 import Result from './screens/Result.vue';
 import Interact from './screens/Interact.vue';
 import CopyRight from './screens/CopyRight.vue';
+import Ranks from './screens/Ranks.vue';
 import { ref } from 'vue';
 
 const statusMatch = ref('default');
@@ -19,7 +20,6 @@ const handleBeforeStart = (configs) => {
   const cardContexts = genArray.flatMap((i) => [i, i]);
   settings.value.cardContexts = cardContexts.sort(() => Math.random() - 0.5);
   settings.value.startedAt = new Date().getTime();
-
   statusMatch.value = 'match';
 };
 
@@ -37,6 +37,7 @@ const handlePlayAgain = () => {
 
 <template>
   <div id="app">
+    <h1 v-if="statusMatch !== 'ranks'" class="rank" @click="statusMatch = 'ranks'">🏆</h1>
     <Main @onStart="handleBeforeStart" v-if="statusMatch === 'default'" />
     <Interact
       v-if="statusMatch === 'match'"
@@ -46,10 +47,24 @@ const handlePlayAgain = () => {
     <Result
       v-if="statusMatch === 'finish'"
       :time="settings.timeFinished"
+      :block="settings.block"
       @onPlayAgain="handlePlayAgain"
     />
+    <Ranks v-if="statusMatch === 'ranks'" @on-back-to-home="statusMatch = 'default'" />
     <CopyRight />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.rank {
+  position: absolute;
+  margin: 0;
+  display: block;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  font-size: 3rem;
+  margin: 1rem;
+  cursor: pointer;
+}
+</style>

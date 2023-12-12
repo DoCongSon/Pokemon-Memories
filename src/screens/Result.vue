@@ -3,7 +3,7 @@
     <h1>🎉 Congratulation 🎉</h1>
     <h3>
       You have finished the game after <span>{{ time }}</span> second, ranked
-      <span>{{ 12 }}</span> out of <span>{{ 43 }}</span> player
+      <span>{{ stt }}</span> out of <span>{{ total }}</span> player
     </h3>
     <input
       type="text"
@@ -20,9 +20,13 @@
 
 <script setup>
 import { defineProps, defineEmits, ref, watch } from 'vue';
+import { setScore, getScores } from '../firebase';
 
 const emits = defineEmits(['onPlayAgain']);
 const nameFlayer = ref('');
+const stt = ref(1);
+const total = ref(0);
+const ranks = ref([]);
 const error = ref(false);
 
 watch(nameFlayer, (value) => {
@@ -36,18 +40,42 @@ const props = defineProps({
     type: [Number, String],
     required: true,
   },
+  block: {
+    type: Number,
+    required: true,
+  },
 });
 
 const handlePlayAgain = () => {
   emits('onPlayAgain');
 };
 
-const handleSave = () => {
+const getRanks = async () => {
+  const scores = await getScores({ mode: props.block });
+  ranks.value = scores;
+  total.value = scores.length + 1;
+  stt.value = total.value;
+  for (let i = 0; i < scores.length; i++) {
+    if (scores[i].time > Number(props.time)) {
+      stt.value = i + 1;
+      break;
+    }
+  }
+};
+
+getRanks();
+
+watch(ranks, (value) => {
+  console.log(value);
+});
+
+const handleSave = async () => {
   if (nameFlayer.value === '') {
     error.value = true;
     return;
   }
-  console.log(nameFlayer.value);
+  await setScore({ name: nameFlayer.value, time: Number(props.time), mode: props.block });
+  emits('onPlayAgain');
 };
 </script>
 
